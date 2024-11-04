@@ -33,7 +33,21 @@ class Owner:
             raise ValueError("Only Pet instances can be added.")  # Ensure to raise the exception
 
     def pets(self):
-        return self._pets
+        return [ pet for pet in Pet.all if pet.owner==self]
 
     def get_sorted_pets(self):
-        return sorted(self._pets, key=lambda pet: pet.name)  # Sort by pet's name
+        # print(sorted(self._pets, key=lambda pet: pet.name))
+        return sorted((pet for pet in Pet.all if pet.owner == self), key=lambda pet: pet.name)
+
+jim=Owner("jim")
+pet4=Pet("ted","rodent",jim)
+pet3=Pet("niga","bird",jim)
+pet2=Pet("tiga","cat",jim)
+pet1=Pet("liga","dog",jim)
+jim.add_pet(pet1)
+jim.add_pet(pet2)
+jim.add_pet(pet4)
+jim.add_pet(pet3)
+
+print(jim.pets())
+print(jim.get_sorted_pets())
